@@ -13,3 +13,18 @@ def show_menu() -> None:
     print(placeholder)
 
 
+def quiz_starten(questions: questions_file):
+      score = 0
+
+      for i in range (len(questions)):
+          print(f"\nFrage {i + 1}: {questions[i]['question']}")
+          for idx, option in enumerate(questions[i]['options']):
+              print(f"{idx + 1}. {option}")
+          answer = input("Deine Antwort (1-4): ")
+          if answer.isdigit() and int(answer) == questions[i]['answer']:
+              print("\033[92mRichtig!\033[0m")
+              score += 1
+          else:
+              print("\033[91mFalsch!\033[0m")
+
+quiz_starten(questions_file)
