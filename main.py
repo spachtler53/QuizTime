@@ -1,6 +1,6 @@
 from questions import questions
 
-placeholder = 50 * "\033[96m_\033[94m"
+placeholder = 50 * "\033[96m_\033[94m" + "\033[0m"
 
 
 def show_menu() -> None:
@@ -30,8 +30,10 @@ def quiz_starten(questions):
 
         answer = input("Deine Antwort (1-4): ")
 
-        if answer.isdigit():
+        try:
             answer_index = int(answer) - 1
+            if answer_index not in range(len(q["options"])):
+                raise ValueError
 
             if answer_index == q["correct_index"]:
                 print("\033[92mRichtig!\033[0m")
@@ -39,8 +41,8 @@ def quiz_starten(questions):
             else:
                 print("\033[91mFalsch!\033[0m")
                 print(f"Erklärung: {q['explanation']}")
-        else:
-            print("Bitte nur Zahlen eingeben.")
+        except ValueError:
+            print("Ungültige Eingabe, bitte 1-4 eingeben.")
 
     print(f"\nDu hast {score}/{len(questions)} richtig.")
 
